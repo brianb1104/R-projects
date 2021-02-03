@@ -1,5 +1,5 @@
 ---
-title: "housing dashboard"
+title: "Housing Dashboard"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
@@ -8,6 +8,7 @@ output:
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
+library(ggplot2)
 ```
 
 Column {data-width=650}
@@ -16,6 +17,7 @@ Column {data-width=650}
 ### Chart A
 
 ```{r}
+housing = read.csv('housing.csv')
 
 ```
 
@@ -25,12 +27,40 @@ Column {data-width=350}
 ### Chart B
 
 ```{r}
+housing <- read.csv("housing.csv")
+
+housingData = housing[,c("population","households")]
+
+relation = lm(housingData$population~housingData$households)
+
+png(file="pop_vs_houho")
+
+plot(housingData$population,housingData$households,
+     main="Population vs Household",
+     abline(lm(population ~ households, housingData)),
+     xlab="housingData$population", ylab="housingData$households")
+     
+while (!is.null(dev.list()))  dev.off()
 
 ```
 
 ### Chart C
 
 ```{r}
+housing <- read.csv("housing.csv")
+
+roomsData = housing[,c("total_rooms","total_bedrooms")]
+
+relation = rm(roomsData$total_rooms~roomsData$total_bedrooms)
+
+png(file="torooms_vs_bedrooms")
+
+plot(housingData$population,housingData$households,
+     main="Rooms vs Bedrooms",
+     abline(rm(total_rooms ~ total_bedrooms, roomsData)),
+     xlab="roomsData$total_rooms", ylab="roomsData$total_bedrooms")
+
+while (!is.null(dev.list()))  dev.off()
 
 ```
 
